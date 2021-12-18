@@ -1,0 +1,17 @@
+Idea:
+    BlackJack Game for one or two players with 4 other bot players
+Brainstorming:
+    What does your program do?
+    - create one or multiple decks(player decision)
+    - have the ability to deal out cards
+    - create a dealer bot
+    - create multiple player bots with logic(like if card total less than 12 hit)
+    - use multiple classes
+    - scoring system
+    - terminal animations
+    How will it work in a terminal?
+Getting GitHub to work:
+    - still working on that one
+    - need to sync this with my computers VSC
+    - got git to work 
+    - access token is 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
