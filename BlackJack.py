@@ -10,7 +10,7 @@ class Card:
         self.rank = rank
     def __str__(self):
         return self.rank + " of " + self.suit
-    def value(self):
+    def score(self):
         return values[self.rank]
 
 class Deck:
@@ -25,10 +25,11 @@ class Deck:
                 self.deck.append(Card(suit, rank))
         random.shuffle(self.deck)
     
-    def __str__(self):
-        deck_list = []
+    def __repr__(self):
+        deck_list = """"""
         for card in self.deck:
-            deck_list.append(card)
+            deck_list += card.rank + " of " + card.suit
+            deck_list += "\n"
         return deck_list
 
     def shuffle_deck(self):
@@ -36,12 +37,15 @@ class Deck:
         random.shuffle(self.deck)
     
     def deal_card(self):
-        return self.deck.pop()
+        card = self.deck.pop()
+        rank = card.rank
+        suit = card.suit
+        return suit, rank
 
 deck = Deck()
 print(deck)
 ace_of_hearts = Card(suits[0], ranks[-1])
-print(ace_of_hearts.value)
+print(ace_of_hearts.score)
 
 
 # class Player:
