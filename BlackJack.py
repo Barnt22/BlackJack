@@ -10,20 +10,18 @@ class Card:
         self.rank = rank
     def __str__(self):
         return self.rank + " of " + self.suit
-    def score(self):
-        return values[self.rank]
+    
 
 class Deck:
     # upon calling for a deck, an array is created using two loops to create multiple cards
     # then shuffled
     # added a shuffle method
     def __init__(self):
-        import random
         self.deck = []
         for suit in suits:
             for rank in ranks:
                 self.deck.append(Card(suit, rank))
-        random.shuffle(self.deck)
+
     
     def __repr__(self):
         deck_list = """"""
@@ -38,14 +36,42 @@ class Deck:
     
     def deal_card(self):
         card = self.deck.pop()
-        rank = card.rank
-        suit = card.suit
-        return suit, rank
+        print(card)
+        return card
+    
+class Hand():
+    def __init__(self):
+        self.cards = []
+        self.score = 0
+        self.has_ace = 0
+
+    
+    def add_card(self, card):
+        self.cards.append(card)
+        self.score += values[card.rank]
+        if card.rank == "Ace":
+            self.has_ace += 1
+        
+    def adjust_for_ace(self):
+        pass
+    
+    def __repr__(self):
+        the_hand = ""
+        if len(self.cards) > 0:
+            the_hand += "There are " + self.cards + " card(s) in your hand."
+            for card in self.cards:
+                the_hand += "\n"
+                the_hand += card.rank + " of " + card.suit
+        else:
+            the_hand = "There are no cards in your hand."
+        return the_hand
 
 deck = Deck()
-print(deck)
-ace_of_hearts = Card(suits[0], ranks[-1])
-print(ace_of_hearts.score)
+deck.shuffle_deck()
+player_hand = Hand()
+new_card = deck.deal_card
+print(player_hand)
+print(new_card)
 
 
 # class Player:
