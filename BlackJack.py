@@ -8,8 +8,15 @@ class Card:
     def __init__(self, suit, rank):
         self.suit = suit
         self.rank = rank
-    def __str__(self):
+        self.value = values[rank]
+    def __repr__(self):
         return self.rank + " of " + self.suit
+
+    def get_value(self):
+        return self.value
+    def change_ace_value(self):
+        if self.rank == "Ace":
+            self.value = 1
     
 
 class Deck:
@@ -36,7 +43,7 @@ class Deck:
     
     def deal_card(self):
         card = self.deck.pop()
-        print(card)
+        
         return card
     
 class Hand():
@@ -53,12 +60,18 @@ class Hand():
             self.has_ace += 1
         
     def adjust_for_ace(self):
-        pass
+        while self.score > 21 and self.has_ace:
+            self.score -= 10
+            self.has_ace -= 1
+
+    def get_score(self):
+        self.adjust_for_ace()
+        return self.score
     
     def __repr__(self):
         the_hand = ""
         if len(self.cards) > 0:
-            the_hand += "There are " + self.cards + " card(s) in your hand."
+            the_hand += "There" + (" are " if len(self.cards) > 1 else " is ") + str(len(self.cards)) + " card" + ("s " if len(self.cards) > 1 else " ") + "in your hand."
             for card in self.cards:
                 the_hand += "\n"
                 the_hand += card.rank + " of " + card.suit
@@ -66,22 +79,14 @@ class Hand():
             the_hand = "There are no cards in your hand."
         return the_hand
 
+class Player():
+    pass
+
+class Table():
+    def __init__(self, deck, player):
+        pass
+
 deck = Deck()
 deck.shuffle_deck()
 player_hand = Hand()
-new_card = deck.deal_card
-print(player_hand)
-print(new_card)
-
-
-# class Player:
-#     pass
-
-# class Dealer:
-#     pass
-
-# class Bots:
-#     pass
-
-# class Main:
-#     pass
+print(deck)
