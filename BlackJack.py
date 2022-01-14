@@ -3,7 +3,7 @@ ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
 values = {'Two':2, 'Three':3, 'Four':4, 'Five':5, 'Six':6, 'Seven':7, 'Eight':8, 'Nine':9, 'Ten':10, 'Jack':10,
          'Queen':10, 'King':10, 'Ace':11}
 
-
+playing = True
 class Card:
     def __init__(self, suit, rank):
         self.suit = suit
@@ -79,14 +79,76 @@ class Hand():
             the_hand = "There are no cards in your hand."
         return the_hand
 
+class Chips():
+    def __init__(self, bank):
+        self.total = bank
+        self.bet = 0
+    def __repr__(self):
+        return str(self.total)
+    def win_bet(self):
+        self.chips += self.bet
+    def lose_bet(self):
+        self.chips -= self.bet
 class Player():
-    pass
+    def __init__(self, chips, hand, name):
+        self.chips = chips
+        self.hand = hand
+        self.name = name
 
-class Table():
-    def __init__(self, deck, player):
-        pass
+    def __repr__(self):
+        return """
+        {name} has {chips} chips:
+        {name}'s hand consists of:
+        {hand}
+        """.format(name = self.name, chips = str(self.chips), hand = str(self.hand))
+
+def get_total_chip_ammount():
+    while True:
+        try:
+            total = int(input("Enter how many chips you would like to start out with: "))
+        except ValueError:
+            print("ammount must be an integer!")
+        else:
+            break
+    return total
+
+def take_bet(chips):
+
+    while True:
+        try:
+            chips.bet = int(input("Enter a bet: "))
+        except ValueError:
+            print("Bet must be an integer!")
+        else:
+            if chips.bet > chips.total:
+                print("Sorry your bet cannot exceed {}".format(chips.total))
+            else:
+                break
+
+def hit_or_stand(Player):
+    pass
+def dealer_hit_or_stand(dealer_hand, deck):
+    print("Dealer Score: \n{}".format(dealer_hand.score))
+    if dealer_hand.score < 17:
+        print("\nDealer Hits: ")
+        new_card = deck.deal_card
+        dealer_hand.add_card(new_card)
+        print("\nDealer drew a {}:".format(new_card))
+        print("\nDealer's score is now {}".format(dealer_hand.score))
+    elif dealer_hand.score >= 17 and < 22:
+        print("\nDealer cannot hit anymore: ")
+        print("\nDealer score: {}".format(dealer_hand.score))
+    else:
+        print("Dealer ")
+        
+
+
 
 deck = Deck()
 deck.shuffle_deck()
 player_hand = Hand()
+chip_ammount = get_total_chip_ammount()
+chips = Chips(chip_ammount)
+player = Player(chips, player_hand, "Player")
+print(player)
 print(deck)
